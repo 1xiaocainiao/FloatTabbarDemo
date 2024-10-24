@@ -1,0 +1,6 @@
+framework module Pods_FloatTabbarDemo {
+  umbrella header "Pods-FloatTabbarDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
