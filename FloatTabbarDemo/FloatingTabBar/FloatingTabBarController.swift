@@ -78,6 +78,9 @@ class FloatingTabBarController: UITabBarController {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = UIImage(named: normalImageName)
         viewController.tabBarItem.selectedImage =  UIImage(named: selectedImageName)
+        // 默认 是 6
+//        let offset = isIPhoneXSeries() ? 14.0 : 10.0
+//        viewController.tabBarItem.imageInsets = UIEdgeInsets(top: offset, left: 0, bottom: -offset, right: 0)
 
         return navController
     }
@@ -118,9 +121,9 @@ extension UIApplication {
     static var currentUIWindow: UIWindow? {
         if #available(iOS 13, *) {
             return UIApplication.shared.connectedScenes
-                .map({ $0 as? UIWindowScene })
-                .compactMap({ $0 })
-                .first?.windows.first
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }
         } else {
             return UIApplication.shared.windows.first { $0.isKeyWindow }
         }
